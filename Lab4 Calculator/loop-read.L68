@@ -1,0 +1,72 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.15.00
+Created On: 28/03/2017 22:38:15
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Program    :  loop-read.x68
+00000000                             3  * Written by :  Joe O'Regan
+00000000                             4  * Date       :  24/02/2016
+00000000                             5  * Description:  Lab4 Part 1: Prompt user to read in from keyboard
+00000000                             6  *               store the numbers starting at membory location 2000
+00000000                             7  *               output the numbers to screen
+00000000                             8  *-----------------------------------------------------------
+00001000                             9          ORG     $1000           ; Program starts at address $1000
+00001000                            10  START:                          ; first instruction of program
+00001000  307C 2000                 11    MOVE.W  #$2000,A0             ; Memory location A0 starts at $2000
+00001004                            12    
+00001004                            13  * Enter Numbers and Store
+00001004                            14    REPEAT                        ; REPEAT UNTIL Loop - Ends when 0 IS ENTERED
+00001004                            15          * Prompt for input
+00001004  43F9 0000104E             16          LEA Prompt,A1           ; Message Prompt: Prompt user to enter number
+0000100A  103C 000E                 17          MOVE.B  #14,D0          ; Trap task 14: Display message
+0000100E  4E4F                      18          TRAP    #15
+00001010                            19          
+00001010                            20          * get number from user into address register and increment by a word i.e. 16 bits
+00001010  103C 0004                 21          MOVE.B  #4,D0           ; Trap task 4: Read in input from keyboard
+00001014  4E4F                      22          TRAP    #15
+00001016  30C1                      23          MOVE.W  D1,(A0)+        ; Move D1 (num entered) to Memory location A0 and increment A0
+00001018                            24    UNTIL.W D1 <EQ> #0 DO         ; End of Repeat Until loop for entering numbers
+0000101E                            25    
+0000101E                            26  * Reset A0 to $2000 and print numbers to screen, until 0 is reached in memory
+0000101E  307C 2000                 27    MOVE.W #$2000,A0              ; Reset A0 to $2000 so values stored can be printed to screen
+00001022  343C 000A                 28    MOVE.W #10,D2                 ; PLACE 10 IN D2 - ***FORMAT IS DECIMAL***
+00001026                            29    REPEAT 
+00001026  3218                      30          MOVE.W (A0)+,D1         ; Move contents of A0 to D1 and increment A0
+00001028                            31          iF.W D1 <NE> #0 THEN
+00001030  43F9 0000105F             32                  LEA NUM,A1      ; Print the string NUM using TASK 14
+00001036  103C 000E                 33                  MOVE.B  #14,D0  ; Output NUM message
+0000103A  4E4F                      34                  TRAP    #15     
+0000103C                            35  
+0000103C  103C 000F                 36                  MOVE.B  #15,D0  ; Print D1 to screen using TASK 15, with format specified in D2
+00001040  4E4F                      37                  TRAP    #15 
+00001042                            38          ENDI 
+00001042                            39    UNTIL.W D1 <EQ> #0 DO         ; End of Repeat Until Loop for printing numbers entered
+00001048                            40    
+00001048                            41  * Exit
+00001048  103C 0009                 42          MOVE.B  #9,D0
+0000104C  4E4F                      43          TRAP    #15             ; Halt simulator
+0000104E                            44  
+0000104E                            45  * Variables and Strings
+0000104E  =0000000D                 46  CR              EQU     $D                                      ; Carriage Return
+0000104E  =0000000A                 47  LF              EQU     $A                                      ; Line Feed
+0000104E= 45 6E 74 65 72 20 ...     48  Prompt          DC.B    'Enter a number: ',0                    ; Enter new number message
+0000105F= 0D 0A 54 68 65 20 ...     49  NUM             DC.B    CR,LF,'The number entered was: ',0      ; Output number entered message
+0000107A                            50  
+0000107A                            51  
+0000107A                            52          END     START           ; Last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+CR                  D
+LF                  A
+NUM                 105F
+PROMPT              104E
+START               1000
+_00000000           1042
+_30000000           1004
+_30000001           1026

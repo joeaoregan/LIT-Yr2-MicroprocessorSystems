@@ -1,0 +1,75 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.15.00
+Created On: 28/03/2017 22:39:51
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Program    : Lab3Part2.X68
+00000000                             3  * Written by : Joe O'Regan
+00000000                             4  * Date       : 09-02-2016
+00000000                             5  * Description: Enter 4 numbers and perform a calculation
+00000000                             6  *-----------------------------------------------------------
+00001000                             7          ORG     $1000
+00001000                             8  START:                          ; first instruction of program
+00001000                             9  ; Prompt enter A
+00001000  43F9 00001070             10          LEA     PROMPTA,A1      ; Load message to A1
+00001006  103C 000E                 11          MOVE.B  #14,D0          ; trap task 14
+0000100A  4E4F                      12          TRAP    #15             ; Display message
+0000100C  103C 0004                 13          MOVE.B  #4,D0           ; Input A
+00001010  4E4F                      14          TRAP    #15
+00001012  1401                      15          MOVE.B  D1,D2           ; Move A to D2  
+00001014                            16  ; Prompt enter B
+00001014  43F9 0000107A             17          LEA     PROMPTB,A1      
+0000101A  103C 000E                 18          MOVE.B  #14,D0          
+0000101E  4E4F                      19          TRAP    #15     
+00001020  103C 0004                 20          MOVE.B  #4,D0           ; Input B
+00001024  4E4F                      21          TRAP    #15
+00001026  1601                      22          MOVE.B  D1,D3           ; Move B to D3  
+00001028                            23  ; Prompt enter C
+00001028  43F9 00001084             24          LEA     PROMPTC,A1      
+0000102E  103C 000E                 25          MOVE.B  #14,D0          
+00001032  4E4F                      26          TRAP    #15     
+00001034  103C 0004                 27          MOVE.B  #4,D0           ; Input C
+00001038  4E4F                      28          TRAP    #15
+0000103A  1801                      29          MOVE.B  D1,D4           ; Move C to D4  
+0000103C                            30  ; Prompt enter D
+0000103C  43F9 0000108E             31          LEA     PROMPTD,A1      
+00001042  103C 000E                 32          MOVE.B  #14,D0          
+00001046  4E4F                      33          TRAP    #15
+00001048  103C 0004                 34          MOVE.B  #4,D0           ; Input D
+0000104C  4E4F                      35          TRAP    #15
+0000104E  1A01                      36          MOVE.B  D1,D5           ; Move D to D5
+00001050                            37  ; Perform calculation
+00001050  D642                      38          ADD     D2,D3           ; Add D2 to D3, store answer in D3
+00001052  DA44                      39          ADD     D4,D5           ; Add D4 to D5, store answer in D5
+00001054  CAC3                      40          MULU    D3,D5           ; Multiply D3 by D5, store answer in D5
+00001056  1205                      41          MOVE.B  D5,D1           ; Move D5 to D1 for output
+00001058                            42  ;Output answer  
+00001058  43F9 00001098             43          LEA     ANSWER,A1
+0000105E  103C 000E                 44          MOVE.B  #14,D0
+00001062  4E4F                      45          TRAP    #15
+00001064                            46          
+00001064  103C 0003                 47          MOVE.B  #3,D0
+00001068  4E4F                      48          TRAP    #15
+0000106A  103C 0009                 49          MOVE.B  #9,D0
+0000106E  4E4F                      50          TRAP    #15             ; halt simulator
+00001070                            51  * Variables and Strings
+00001070= 45 4E 54 45 52 20 ...     52  PROMPTA DC.B    'ENTER A: ',0   ; Messages: Prompt user to enter numbers
+0000107A= 45 4E 54 45 52 20 ...     53  PROMPTB DC.B    'ENTER B: ',0
+00001084= 45 4E 54 45 52 20 ...     54  PROMPTC DC.B    'ENTER C: ',0
+0000108E= 45 4E 54 45 52 20 ...     55  PROMPTD DC.B    'ENTER D: ',0
+00001098= 41 4E 53 57 45 52 ...     56  ANSWER  DC.B    'ANSWER: ',0    ; Message: Answer of calculation
+000010A1                            57          END     START           ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+ANSWER              1098
+PROMPTA             1070
+PROMPTB             107A
+PROMPTC             1084
+PROMPTD             108E
+START               1000
