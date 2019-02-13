@@ -6,7 +6,7 @@
 
 --- 
 
-##Yr2 Microprocessor Systems Labs, 68K Assembly Language
+## Yr2 Microprocessor Systems Labs, 68K Assembly Language
 
 * Motorola 68000 Assembler (68K Assembly Language)
 * Programmed using easy68K IDE
@@ -24,3 +24,9 @@
 ---
 ![Lab6 7 Segment Display](https://raw.githubusercontent.com/joeaoregan/Yr2-Microprocessor-Systems-Labs/master/Screenshots/Lab6.png "Lab6 7 Segment Display")
 ###### Lab6 7 Segment Display
+
+---
+
+## Links
+
+[EASy68K Home Page](http://www.easy68k.com/)
