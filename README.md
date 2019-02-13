@@ -1,7 +1,10 @@
-# Games Design and Development: Year 2 (2015/16)
-# Semester 4: Microprocessor Systems Labs
-### Joe O'Regan
-### K00203642
+# Microprocessor Systems
+## Joe O'Regan (K00203642)
+### Year 2 (2015/16), Semester 4
+#### BSc Computing (Games Design and Development)
+##### Limerick Institute of Technology
+
+--- 
 
 ##Yr2 Microprocessor Systems Labs, 68K Assembly Language
 
