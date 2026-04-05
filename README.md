@@ -62,7 +62,7 @@
 
 <div align="center">
 
-[![Next](https://img.shields.io/badge/Next%20Lab3%20Enter%20Numbers%20Perform%20Calculation%20→-blue?style=flat-square)](Lab3%20Enter%20Numbers%20Perform%20Calculation/README.md)
+[![Next](https://img.shields.io/badge/Next%20Lab1%20→-blue?style=flat-square)](Lab1/README.md)
 </div>
 
 ---
