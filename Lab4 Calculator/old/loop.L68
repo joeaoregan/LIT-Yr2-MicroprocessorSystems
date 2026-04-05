@@ -1,0 +1,49 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.15.00
+Created On: 23/02/2016 23:34:31
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      :
+00000000                             3  * Written by :
+00000000                             4  * Date       :
+00000000                             5  * Description: read values using a loop
+00000000                             6  *-----------------------------------------------------------
+00001000                             7      ORG    $1000
+00001000                             8  START:                  ; first instruction of program
+00001000  307C 2000                  9    MOVE.W  #$2000,A0 * point A0 to location $2000
+00001004                            10    
+00001004                            11  * Put program code here
+00001004                            12    REPEAT                    ; REPEAT - UNTIL loop
+00001004                            13      * prompt for input
+00001004  43F9 00001024             14      lea prompt,A1
+0000100A  103C 000E                 15      move.b  #14,D0
+0000100E  4E4F                      16      trap    #15
+00001010                            17  
+00001010                            18      * get number from user into address register and increment by a word i.e. 16 bits
+00001010  103C 0004                 19      move.b  #4,D0
+00001014  4E4F                      20      trap    #15
+00001016  30C1                      21      move.w  d1,(A0)+
+00001018                            22    UNTIL.W D1 <EQ> #0 DO
+0000101E                            23    
+0000101E  103C 0009                 24      MOVE.B  #9,D0
+00001022  4E4F                      25      TRAP    #15     Halt Simulator
+00001024                            26  
+00001024                            27  * Put variables and constants here
+00001024  =0000000D                 28  CR  EQU     $D
+00001024  =0000000A                 29  LF  EQU     $A
+00001024= 0D 0A 45 6E 74 65 ...     30  prompt      dc.b    CR,LF,'Enter a number: ',0
+00001037                            31  
+00001037                            32      END    START        ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+CR                  D
+LF                  A
+PROMPT              1024
+START               1000
+_30000000           1004

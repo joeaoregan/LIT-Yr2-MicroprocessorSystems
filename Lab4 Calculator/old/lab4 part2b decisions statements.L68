@@ -1,0 +1,222 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.15.00
+Created On: 25/02/2016 19:17:27
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Program    :  loop-read.x68
+00000000                             3  * Written by :  Joe O'Regan
+00000000                             4  * Date       :  24/02/2016
+00000000                             5  * Description:  Lab4 Part 1: Prompt user to read in from keyboard
+00000000                             6  *               store the numbers starting at membory location 2000
+00000000                             7  *               Add the numbers together and store in D5
+00000000                             8  *               Multiply the all the numbers and store in D6
+00000000                             9  *               output the numbers to screen and both totals
+00000000                            10  *-----------------------------------------------------------
+00001000                            11          ORG     $1000           ; Program starts at address $1000
+00001000                            12  START:                          ; first instruction of program
+00001000  307C 2000                 13    MOVE.W  #$2000,A0             ; Memory location A0 starts at $2000
+00001004  3C3C 0001                 14    MOVE.W  #1,D6                 ; Set value of D6 to 1 for multiplication
+00001008                            15  
+00001008                            16  * Display Options       
+00001008  43F9 0000122D             17  LOOP    LEA Option,A1           ; Display the Option Message
+0000100E  103C 000E                 18          MOVE.B  #14,D0
+00001012  4E4F                      19          TRAP    #15
+00001014                            20  * Input
+00001014  103C 0004                 21          MOVE.B  #4,D0
+00001018  4E4F                      22          TRAP    #15
+0000101A                            23          
+0000101A  1601                      24          MOVE.B  D1,D3           ; ***************      Store option selected in D3
+0000101C                            25  * Exit if 0     
+0000101C  B2BC 00000000             26          CMP.L   #0,D1           Compares D1 to the number 0
+00001022  6700 013E                 27          BEQ     DONE            Branch to DONE if they are equal
+00001026                            28  * Invalid option if outside range 0-2        
+00001026  B23C 0000                 29          CMP.B   #0,D1           Compares D1 to 0
+0000102A  6D00 0126                 30          BLT     INVALID         BLT branches if D1 is less than 0
+0000102E  B23C 0002                 31          CMP.B   #2,D1           Compares D1 to 2
+00001032  6E00 011E                 32          BGT     INVALID         BGT branches if D1 is greater than 2
+00001036                            33           
+00001036                            34  *--figure out what the number actually is--
+00001036  B23C 0001                 35          CMP.B   #1,D1           Compares D1 and 1
+0000103A  6600 006C                 36          BNE     TWO             BEQ branches if D1 and 1 are not equal
+0000103E                            37  
+0000103E                            38  * Enter Numbers and Store
+0000103E                            39  *  REPEAT                       ; REPEAT UNTIL Loop - Ends when 0 IS ENTERED        
+0000103E                            40    REPEAT        
+0000103E  43F9 00001168             41          LEA PromptA,A1          ; Prompt number to Add
+00001044  103C 000E                 42          MOVE.B  #14,D0          ; Trap task 14: Display message
+00001048  4E4F                      43          TRAP    #15
+0000104A                            44          
+0000104A                            45  * get number from user into address register and increment by a word i.e. 16 bits
+0000104A  103C 0004                 46          MOVE.B  #4,D0           ; Trap task 4: Read in input from keyboard
+0000104E  4E4F                      47          TRAP    #15
+00001050  30C1                      48          MOVE.W  D1,(A0)+        ; Move D1 (num entered) to Memory location A0 and increment A0
+00001052                            49          
+00001052                            50  * Add number to total   
+00001052  DA41                      51          ADD     D1,D5           ; Add D1 to D5 (Store in D5)
+00001054                            52    UNTIL.W D1 <EQ> #0 DO 
+0000105A                            53    
+0000105A                            54   * Reset A0 to $2000 and print numbers to screen, until 0 is reached in memory
+0000105A  307C 2000                 55    MOVE.W #$2000,A0              ; Reset A0 to $2000 so values stored can be printed to screen
+0000105E  343C 000A                 56    MOVE.W #10,D2                 ; PLACE 10 IN D2 - ***FORMAT IS DECIMAL***
+00001062                            57    REPEAT 
+00001062  3218                      58          MOVE.W (A0)+,D1         ; Move contents of A0 to D1 and increment A0
+00001064                            59          iF.W D1 <NE> #0 THEN
+0000106C  43F9 000011DC             60                  LEA NUM,A1      ; Print the string NUM using TASK 14
+00001072  103C 000E                 61                  MOVE.B  #14,D0  ; Output NUM message
+00001076  4E4F                      62                  TRAP    #15     
+00001078                            63  
+00001078  103C 000F                 64                  MOVE.B  #15,D0  ; Print D1 to screen using TASK 15, with format specified in D2
+0000107C  4E4F                      65                  TRAP    #15 
+0000107E                            66          ENDI            
+0000107E                            67    UNTIL.W D1 <EQ> #0 DO         ; End of Repeat Until Loop for printing numbers entered
+00001084                            68  
+00001084                            69  * Output the numbers added together
+00001084  3205                      70          MOVE.W  D5,D1           ; Move the total D5 to D1       
+00001086  43F9 00001199             71                  LEA TotAdd,A1   ; Output the Message for Total of all numbers added
+0000108C  103C 000E                 72                  MOVE.B  #14,D0  ; Output Total Added message
+00001090  4E4F                      73                  TRAP    #15     
+00001092                            74                  
+00001092  103C 0003                 75          MOVE.B  #3,D0           ; Output the Value for total of all numbers added
+00001096  4E4F                      76          TRAP    #15     
+00001098                            77  * Run the program again?        
+00001098  43F9 00001293             78                  LEA RunAgain,A1 ; Ask user if they would like to run again
+0000109E  103C 000E                 79                  MOVE.B  #14,D0
+000010A2  4E4F                      80                  TRAP    #15
+000010A4                            81  * Branch back to LOOP to run menu again   
+000010A4  6000 FF62                 82          BRA     LOOP            ; Branch to loop
+000010A8                            83          
+000010A8                            84     
+000010A8                            85  TWO             
+000010A8                            86  * Enter Numbers and Store
+000010A8                            87  * REPEAT                        ; REPEAT UNTIL Loop - Ends when 0 IS ENTERED        
+000010A8                            88    REPEAT        
+000010A8  43F9 0000117E             89          LEA PromptM,A1          ; Prompt number to Add
+000010AE  103C 000E                 90          MOVE.B  #14,D0          ; Trap task 14: Display message
+000010B2  4E4F                      91          TRAP    #15
+000010B4                            92          
+000010B4                            93  * get number from user into address register and increment by a word i.e. 16 bits
+000010B4  103C 0004                 94          MOVE.B  #4,D0           ; Trap task 4: Read in input from keyboard
+000010B8  4E4F                      95          TRAP    #15
+000010BA  30C1                      96          MOVE.W  D1,(A0)+        ; Move D1 (num entered) to Memory location A0 and increment A0
+000010BC                            97          
+000010BC                            98  * Part 2b - Multiply all the numbers
+000010BC                            99          iF.W D1 <NE> #0 THEN    ; If the number is not equal to 0 multiply by total
+000010C4  CCC1                     100          MULU    D1,D6           ; Multiply number entered by contents of D6
+000010C6                           101          ENDI
+000010C6                           102    UNTIL.W D1 <EQ> #0 DO 
+000010CC                           103  * Output the numbers multiplied together
+000010CC  3206                     104          MOVE.W  D6,D1           ; Move the total D6 to D1
+000010CE  43F9 000011B6            105                  LEA TotMul,A1   ; Output the Message for Total of all numbers multiplied
+000010D4  103C 000E                106                  MOVE.B  #14,D0  ; Output Total Multiplied message
+000010D8  4E4F                     107                  TRAP    #15     
+000010DA                           108                  
+000010DA  103C 0003                109          MOVE.B  #3,D0           ; Output the Value for total of all numbers added
+000010DE  4E4F                     110          TRAP    #15
+000010E0                           111  
+000010E0                           112  * Output the numbers multiplied together
+000010E0                           113          iF.W D3 <EQ> #2 THEN            
+000010E8  3206                     114          MOVE.W  D6,D1           ; Move the total D6 to D1
+000010EA  43F9 000011B6            115                  LEA TotMul,A1   ; Output the Message for Total of all numbers multiplied
+000010F0  103C 000E                116                  MOVE.B  #14,D0  ; Output Total Multiplied message
+000010F4  4E4F                     117                  TRAP    #15     
+000010F6                           118                  
+000010F6  103C 0003                119          MOVE.B  #3,D0           ; Output the Value for total of all numbers added
+000010FA  4E4F                     120          TRAP    #15
+000010FC                           121          ENDI
+000010FC                           122          
+000010FC                           123  * Run the program again?        
+000010FC  43F9 00001293            124                  LEA RunAgain,A1 ; Ask user if they would like to run again
+00001102  103C 000E                125                  MOVE.B  #14,D0
+00001106  4E4F                     126                  TRAP    #15
+00001108                           127  * Branch back to LOOP to run menu again   
+00001108  6000 FEFE                128          BRA     LOOP            ; Branch to Loop
+0000110C                           129  
+0000110C                           130  
+0000110C                           131  *       iF.W D3 <EQ> #2 THEN    
+0000110C                           132  *       ENDI    
+0000110C                           133    
+0000110C                           134  * Reset A0 to $2000 and print numbers to screen, until 0 is reached in memory
+0000110C  307C 2000                135    MOVE.W #$2000,A0              ; Reset A0 to $2000 so values stored can be printed to screen
+00001110  343C 000A                136    MOVE.W #10,D2                 ; PLACE 10 IN D2 - ***FORMAT IS DECIMAL***
+00001114                           137    REPEAT 
+00001114  3218                     138          MOVE.W (A0)+,D1         ; Move contents of A0 to D1 and increment A0
+00001116                           139          iF.W D1 <NE> #0 THEN
+0000111E  43F9 000011DC            140                  LEA NUM,A1      ; Print the string NUM using TASK 14
+00001124  103C 000E                141                  MOVE.B  #14,D0  ; Output NUM message
+00001128  4E4F                     142                  TRAP    #15     
+0000112A                           143  
+0000112A  103C 000F                144                  MOVE.B  #15,D0  ; Print D1 to screen using TASK 15, with format specified in D2
+0000112E  4E4F                     145                  TRAP    #15 
+00001130                           146          ENDI            
+00001130                           147    UNTIL.W D1 <EQ> #0 DO         ; End of Repeat Until Loop for printing numbers entered
+00001136                           148  
+00001136                           149  * Output the numbers added together
+00001136                           150  
+00001136                           151          iF.W D3 <EQ> #1 THEN
+0000113E  3205                     152          MOVE.W  D5,D1           ; Move the total D5 to D1       
+00001140  43F9 00001199            153                  LEA TotAdd,A1   ; Output the Message for Total of all numbers added
+00001146  103C 000E                154                  MOVE.B  #14,D0  ; Output Total Added message
+0000114A  4E4F                     155                  TRAP    #15     
+0000114C                           156                  
+0000114C  103C 0003                157          MOVE.B  #3,D0           ; Output the Value for total of all numbers added
+00001150  4E4F                     158          TRAP    #15     
+00001152                           159          ENDI
+00001152                           160  
+00001152                           161  * Invalid Option Selected
+00001152  43F9 000011F7            162  INVALID LEA     INV,A1
+00001158  103C 000E                163          MOVE.B  #14,D0  
+0000115C  4E4F                     164          TRAP    #15
+0000115E  6000 FEA8                165          BRA     LOOP
+00001162                           166  * Exit
+00001162  103C 0009                167  DONE    MOVE.B  #9,D0
+00001166  4E4F                     168          TRAP    #15             ; Halt simulator
+00001168                           169  
+00001168                           170  * Variables and Strings
+00001168  =0000000D                171  CR              EQU     $D                                              ; Carriage Return
+00001168  =0000000A                172  LF              EQU     $A                                              ; Line Feed
+00001168= 45 6E 74 65 72 20 ...    173  PromptA         DC.B    'Enter number to add: ',0                       ; Enter new number message add to total
+0000117E= 45 6E 74 65 72 20 ...    174  PromptM         DC.B    'Enter number to multiply: ',0                  ; Enter new number message multiply by total
+00001199= 0D 0A 0D 0A 54 6F ...    175  TotAdd          DC.B    CR,LF,CR,LF,'Total Of Numbers Added: ',0                ; Output the total for the all the numbers added
+000011B6= 0D 0A 0D 0A 56 61 ...    176  TotMul          DC.B    CR,LF,CR,LF,'Value Of The Numbers Multiplied: ',0       ; Total for all the numbers multiplied
+000011DC= 0D 0A 54 68 65 20 ...    177  NUM             DC.B    CR,LF,'The number entered was: ',0              ; Output number entered message
+000011F7= 0D 0A 4E 6F 74 20 ...    178  INV             DC.B    CR,LF,'Not A Valid Option'
+0000120B= 0D 0A 4F 70 74 69 ...    179                  DC.B    CR,LF,'Options Are Between 0 and 2',CR,LF,CR,LF,0
+0000122D= 50 6C 65 61 73 65 ...    180  Option          DC.B    'Please Choose An Option: '
+00001246= 0D 0A 31 2E 20 41 ...    181                  DC.B    CR,LF,'1. Add All The Numbers'
+0000125E= 0D 0A 32 2E 20 4D ...    182                  DC.B    CR,LF,'2. Multiply All The Numbers'
+0000127B= 0D 0A 30 2E 20 45 ...    183                  DC.B    CR,LF,'0. Exit The Program',CR,LF,0
+00001293= 0D 0A 0D 0A 57 6F ...    184  RunAgain        DC.B    CR,LF,CR,LF,'Would you like to run the program again?',CR,LF,CR,LF,0
+000012C4                           185  
+000012C4                           186          END     START           ; Last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+CR                  D
+DONE                1162
+INV                 11F7
+INVALID             1152
+LF                  A
+LOOP                1008
+NUM                 11DC
+OPTION              122D
+PROMPTA             1168
+PROMPTM             117E
+RUNAGAIN            1293
+START               1000
+TOTADD              1199
+TOTMUL              11B6
+TWO                 10A8
+_00000000           107E
+_00000001           10C6
+_00000002           10FC
+_00000003           1130
+_00000004           1152
+_30000000           103E
+_30000001           1062
+_30000002           10A8
+_30000003           1114

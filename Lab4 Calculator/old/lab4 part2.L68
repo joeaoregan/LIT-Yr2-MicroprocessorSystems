@@ -1,0 +1,86 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.9.0
+Created On: 24/02/16 12:26:12 PM
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Program    :  loop-read.x68
+00000000                             3  * Written by :  Joe O'Regan
+00000000                             4  * Date       :  24/02/2016
+00000000                             5  * Description:  Lab4 Part 1: Prompt user to read in from keyboard
+00000000                             6  *               store the numbers starting at membory location 2000
+00000000                             7  *               output the numbers to screen
+00000000                             8  *-----------------------------------------------------------
+00001000                             9          ORG     $1000           ; Program starts at address $1000
+00001000                            10  START:                          ; first instruction of program
+00001000  307C 2000                 11    MOVE.W  #$2000,A0             ; Memory location A0 starts at $2000
+00001004                            12    
+00001004                            13  * Enter Numbers and Store
+00001004                            14    REPEAT                        ; REPEAT UNTIL Loop - Ends when 0 IS ENTERED
+00001004                            15          * Prompt for input
+00001004  43F9 00001064             16          LEA Prompt,A1           ; Message Prompt: Prompt user to enter number
+0000100A  103C 000E                 17          MOVE.B  #14,D0          ; Trap task 14: Display message
+0000100E  4E4F                      18          TRAP    #15
+00001010                            19          
+00001010                            20          * get number from user into address register and increment by a word i.e. 16 bits
+00001010  103C 0004                 21          MOVE.B  #4,D0           ; Trap task 4: Read in input from keyboard
+00001014  4E4F                      22          TRAP    #15
+00001016  30C1                      23          MOVE.W  D1,(A0)+        ; Move D1 (num entered) to Memory location A0 and increment A0
+00001018                            24  * Part 2 - Add all the numbers
+00001018  DA41                      25          ADD     D1,D5           ; Add D1 to D5 (Store in D5)
+0000101A                            26    UNTIL.W D1 <EQ> #0 DO         ; End of Repeat Until loop for entering numbers
+00001020                            27    
+00001020                            28  * Reset A0 to $2000 and print numbers to screen, until 0 is reached in memory
+00001020  307C 2000                 29    MOVE.W #$2000,A0              ; Reset A0 to $2000 so values stored can be printed to screen
+00001024  343C 000A                 30    MOVE.W #10,D2                 ; PLACE 10 IN D2 - ***FORMAT IS DECIMAL***
+00001028                            31    REPEAT 
+00001028  3218                      32          MOVE.W (A0)+,D1         ; Move contents of A0 to D1 and increment A0
+0000102A                            33          iF.W D1 <NE> #0 THEN
+00001032  43F9 00001094             34                  LEA NUM,A1      ; Print the string NUM using TASK 14
+00001038  103C 000E                 35                  MOVE.B  #14,D0  ; Output NUM message
+0000103C  4E4F                      36                  TRAP    #15     
+0000103E                            37  
+0000103E  103C 000F                 38                  MOVE.B  #15,D0  ; Print D1 to screen using TASK 15, with format specified in D2
+00001042  4E4F                      39                  TRAP    #15 
+00001044                            40          ENDI            
+00001044                            41    UNTIL.W D1 <EQ> #0 DO         ; End of Repeat Until Loop for printing numbers entered
+0000104A                            42                  
+0000104A  3205                      43          MOVE.W  D5,D1           ; Move the total D5 to D1
+0000104C  43F9 00001075             44                  LEA Total,A1    ; Output the Message for Total of numbers added
+00001052  103C 000E                 45                  MOVE.B  #14,D0  ; Output Total message
+00001056  4E4F                      46                  TRAP    #15     
+00001058                            47                  
+00001058  103C 0003                 48          MOVE.B  #3,D0
+0000105C  4E4F                      49          TRAP    #15
+0000105E                            50  
+0000105E                            51                  
+0000105E                            52    
+0000105E                            53  * Exit
+0000105E  103C 0009                 54          MOVE.B  #9,D0
+00001062  4E4F                      55          TRAP    #15             ; Halt simulator
+00001064                            56  
+00001064                            57  * Variables and Strings
+00001064  =0000000D                 58  CR              EQU     $D                                      ; Carriage Return
+00001064  =0000000A                 59  LF              EQU     $A                                      ; Line Feed
+00001064= 45 6E 74 65 72 20 ...     60  Prompt          DC.B    'Enter a number: ',0                    ; Enter new number message
+00001075= 0D 0A 54 68 65 20 ...     61  Total           DC.B    CR,LF,'The Total Of Numbers Added: ',0  ; Output the total for the all the numbers added
+00001094= 0D 0A 54 68 65 20 ...     62  NUM             DC.B    CR,LF,'The number entered was: ',0      ; Output number entered message
+000010AF                            63  
+000010AF                            64  
+000010AF                            65          END     START           ; Last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+CR                  D
+LF                  A
+NUM                 1094
+PROMPT              1064
+START               1000
+TOTAL               1075
+_00000000           1044
+_30000000           1004
+_30000001           1028

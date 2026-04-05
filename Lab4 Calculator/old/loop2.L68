@@ -1,0 +1,71 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.15.00
+Created On: 23/02/2016 23:39:58
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      :
+00000000                             3  * Written by : Joe O'Regan
+00000000                             4  * Date       :
+00000000                             5  * Description: read values using a loop 2
+00000000                             6  *-----------------------------------------------------------
+00001000                             7      ORG    $1000
+00001000                             8  START:                  ; first instruction of program
+00001000  307C 2000                  9    MOVE.W  #$2000,A0 * point A0 to location $2000
+00001004                            10    
+00001004                            11  * Loop until 0 is entered
+00001004                            12  
+00001004                            13    REPEAT                    ; REPEAT - UNTIL loop
+00001004                            14  * prompt for input
+00001004  43F9 0000104E             15      lea prompt,A1
+0000100A  103C 000E                 16      move.b  #14,D0
+0000100E  4E4F                      17      trap    #15
+00001010                            18  
+00001010                            19  * get number from user into address register and increment by a word i.e. 16 bits
+00001010  103C 0004                 20      move.b  #4,D0
+00001014  4E4F                      21      trap    #15
+00001016                            22      
+00001016  30C1                      23      move.w  d1,(A0)+
+00001018                            24    UNTIL.W D1 <EQ> #0 DO
+0000101E                            25  ; code inserted
+0000101E                            26    
+0000101E  307C 2000                 27    MOVE.W #$2000,A0  reset A0 to $2000
+00001022  343C 000A                 28    MOVE.W #10,D2     PLACE 10 IN D2 AS FORMAT IS DECIMAL
+00001026                            29    REPEAT 
+00001026  3218                      30      MOVE.W (A0)+,D1   move contents of a0 to d1 and increment a0
+00001028                            31      iF.W d1 <NE> #0 THEN
+00001030  43F9 00001061             32          lea num,A1  PRINT THE STRING NUM USING TASK 14
+00001036  103C 000E                 33          move.b  #14,D0
+0000103A  4E4F                      34          trap    #15 
+0000103C                            35  
+0000103C  103C 000F                 36          move.b  #15,D0  PRINT D1 TO THE SCREEN USING TASK 15
+00001040  4E4F                      37          trap    #15 
+00001042                            38          ENDI 
+00001042                            39    UNTIL.W D1 <EQ> #0 DO  
+00001048                            40  ; endo of new code
+00001048                            41    
+00001048  103C 0009                 42      MOVE.B  #9,D0
+0000104C  4E4F                      43      TRAP    #15     Halt Simulator
+0000104E                            44  
+0000104E                            45  * Put variables and constants here
+0000104E  =0000000D                 46  CR  EQU     $D
+0000104E  =0000000A                 47  LF  EQU     $A
+0000104E= 0D 0A 45 6E 74 65 ...     48  prompt      dc.b    CR,LF,'Enter a number: ',0
+00001061= 0D 0A 54 68 65 20 ...     49  num         dc.b    CR,LF,'The number entered was: ',0  ; new line of code
+0000107C                            50  
+0000107C                            51      END    START        ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+CR                  D
+LF                  A
+NUM                 1061
+PROMPT              104E
+START               1000
+_00000000           1042
+_30000000           1004
+_30000001           1026
