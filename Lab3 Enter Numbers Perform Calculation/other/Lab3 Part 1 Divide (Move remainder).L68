@@ -1,0 +1,78 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.15.00
+Created On: 23/02/2016 00:35:26
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Program    : Lab 3 Part 1
+00000000                             3  * Written by : Joe O'Regan
+00000000                             4  * Date       : 09-02-16
+00000000                             5  * Description:
+00000000                             6  *-----------------------------------------------------------
+00001000                             7          ORG     $1000
+00001000                             8  START:                          ; first instruction of program
+00001000                             9  ; Output prompt numerator
+00001000  43F9 0000105E             10          LEA     PROMPTN,A1      ; Load PROMPTN (numerator message) to A1
+00001006  103C 000E                 11          MOVE.B  #14,D0          ; Trap task 14
+0000100A  4E4F                      12          TRAP    #15             ; Display message
+0000100C                            13  ; Input numerator
+0000100C  103C 0004                 14          MOVE.B  #4,D0
+00001010  4E4F                      15          TRAP    #15
+00001012  3801                      16          MOVE.W  D1,D4           ; Step 1. Move numerator to D4
+00001014                            17          
+00001014                            18  ; Output pompt denominator
+00001014  43F9 00001070             19          LEA     PROMPTD,A1      ; Load PROMPTD (denominator message) to A1
+0000101A  103C 000E                 20          MOVE.B  #14,D0          ; Trap task 14
+0000101E  4E4F                      21          TRAP    #15             ; Display message
+00001020                            22  ; Input denominator
+00001020  103C 0004                 23          MOVE.B  #4,D0
+00001024  4E4F                      24          TRAP    #15
+00001026  3601                      25          MOVE.W  D1,D3           ; Step 2. Move denominator to D3
+00001028                            26          
+00001028  88C3                      27          DIVU    D3,D4           ; Divide D4 by D3
+0000102A                            28  ; Move D4
+0000102A  3A04                      29          MOVE.W  D4,D5           ; Quotient to D5
+0000102C  4844                      30          SWAP    D4              ; **** NEED TO SWAP POSITION OF REMAINDER       
+0000102E  3C04                      31          MOVE.W  D4,D6           ; Remainder to D6
+00001030                            32                  
+00001030                            33  ; Output quotient & remainder
+00001030  43F9 00001084             34          LEA     PROMPTQ,A1      ; Print quotient message
+00001036  103C 000E                 35          MOVE.B  #14,D0
+0000103A  4E4F                      36          TRAP    #15
+0000103C                            37          
+0000103C  1205                      38          MOVE.B  D5,D1           ; Move quotient to D1   
+0000103E  103C 0003                 39          MOVE.B  #3,D0           ; Print quotient
+00001042  4E4F                      40          TRAP    #15
+00001044                            41          
+00001044  43F9 00001092             42          LEA     PROMPTR,A1      ; Print remainder message
+0000104A  103C 000E                 43          MOVE.B  #14,D0
+0000104E  4E4F                      44          TRAP    #15
+00001050                            45          
+00001050  1206                      46          MOVE.B  D6,D1           ; Move remainder to D1  
+00001052  103C 0003                 47          MOVE.B  #3,D0           ; Print remainder
+00001056  4E4F                      48          TRAP    #15
+00001058                            49  
+00001058                            50  ; exit
+00001058  103C 0009                 51          MOVE.B  #9,D0
+0000105C  4E4F                      52          TRAP    #15             ; halt simulator
+0000105E                            53  
+0000105E                            54  * Variables and Strings
+0000105E= 45 4E 54 45 52 20 ...     55  PROMPTN DC.B    'ENTER NUMERATOR: ',0
+00001070= 45 4E 54 45 52 20 ...     56  PROMPTD DC.B    'ENTER DENOMINATOR: ',0
+00001084= 51 55 4F 54 2D 49 ...     57  PROMPTQ DC.B    'QUOT-I-E-NT: ',0
+00001092= 20 52 45 4D 41 49 ...     58  PROMPTR DC.B    ' REMAINDER: ',0
+0000109F                            59  ;MESSAGE        DC.B    ' DIVIDED BY ',0
+0000109F                            60  
+0000109F                            61          END     START           ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+PROMPTD             1070
+PROMPTN             105E
+PROMPTQ             1084
+PROMPTR             1092
+START               1000

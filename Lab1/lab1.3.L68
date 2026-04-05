@@ -1,0 +1,38 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.15.00
+Created On: 07/02/2016 10:46:14
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Program    : Lab 1
+00000000                             3  * Written by : Joe O'Regan
+00000000                             4  * Date       : 21/01/2016
+00000000                             5  * Description: First Program
+00000000                             6  *-----------------------------------------------------------
+00001000                             7          ORG     $1000
+00001000                             8  START:                          ; first instruction of program
+00001000  123C 000A                  9          MOVE.B #10,D1                 ; Step 2
+00001004  183C 0009                 10          MOVE.B #9,D4                  ; Step 6
+00001008  D244                      11          ADD D4,D1                     ; Step 7
+0000100A  143C 000F                 12          MOVE.B #$F,D2                 ; Step 8
+0000100E  163C 0010                 13          MOVE.B #%00010000,D3          ; Step 9
+00001012  5641                      14          ADD #3,D1                     ; Step 10
+00001014                            15  
+00001014                            16  * Exit code 
+00001014  103C 0009                 17          MOVE.B  #9,D0
+00001018  4E4F                      18          TRAP    #15             ; Used for I/O
+0000101A                            19  ;         SIMHALT                       ; halt simulator (not needed Task 9 = terminate)
+0000101A                            20  
+0000101A                            21  * Variables and Strings
+0000101A                            22  
+0000101A                            23  
+0000101A                            24  
+0000101A                            25          END     START           ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+START               1000

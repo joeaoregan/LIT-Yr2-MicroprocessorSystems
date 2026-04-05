@@ -1,0 +1,62 @@
+
+START   ORG     $1000
+
+*-------Code for displaying msg-------
+	LEA     MESSAGEN,A1     
+        MOVE.B  #14,D0          
+        TRAP    #15       
+
+*-------Code for input-------
+        MOVE.B  #4,D0           Trap task 4 does the following:
+        TRAP    #15             Read a number from the keyboard into D1.L
+        
+        MOVE	D1,D2		STORE NUMERATOR IN D2
+
+
+*-------Code for displaying msg-------
+	LEA     MESSAGED,A1     
+        MOVE.B  #14,D0          
+        TRAP    #15       
+
+*-------Code for input-------
+        MOVE.B  #4,D0           Trap task 4 does the following:
+        TRAP    #15             Read a number from the keyboard into D1.L
+        
+        MOVE	D1,D3		STORE NUMERATOR IN D2
+
+	DIVU	D3,D2		DIVIDE NUMERATOR BY DENOMINATOR ANS IN D2
+	
+	MOVE.W	D2,D4		MOVE THE LOWER 16 BITS TO D4 QUOTEINT
+	
+	SWAP	D2		REVERSE CONTENTS OF D2, REMAINDER NOW IN LOWER 16 
+	
+	MOVE.W	D2,D5		MOVE THE LOWER 16 BITS TO D5 REMAINDER
+	
+*---------print the quoteint to the screen
+	MOVE	D4,D1
+
+	LEA     MESSAGEQ,A1     
+        MOVE.B  #14,D0          
+        TRAP    #15 	
+	
+	MOVE.B  #3,D0           Trap task 3 does the following:
+        TRAP    #15             Display value in D1 on the screen in decimal format
+
+*---------HALT THE SIMULATOR
+	MOVE.B  #9,D0
+        TRAP    #15             Halt Simulator
+
+
+MESSAGEN 	DC.B    'Enter the numerator: ',0
+MESSAGED	DC.B    'Enter the denominator: ',0
+MESSAGEQ	DC.B	 'The Quoteint is :',0
+MESSAGER	DC.B	'The remainder is :',0
+
+
+        END     START
+
+
+*~Font name~Fixedsys~
+*~Font size~18~
+*~Tab type~1~
+*~Tab size~8~

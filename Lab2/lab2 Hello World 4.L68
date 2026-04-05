@@ -1,0 +1,44 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.15.00
+Created On: 07/02/2016 13:06:56
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Program    : Hello World 4
+00000000                             3  * Written by : Joe O'Regan
+00000000                             4  * Date       : 27/01/2016
+00000000                             5  * Description: Sample Program 4 for Quickstart Guide
+00000000                             6  *-----------------------------------------------------------
+00001000                             7          ORG     $1000
+00001000                             8  START:                          ; first instruction of program
+00001000                             9  
+00001000  43F9 00001012             10          LEA     MESSAGE,A1      ; Loads Message into address register A1
+00001006  103C 000E                 11          MOVE.B  #14,D0          ; Moves the number 14 into data register D0
+0000100A  4E4F                      12          TRAP    #15             ; Displays Message
+0000100C                            13  
+0000100C  103C 0009                 14          MOVE.B  #9,D0
+00001010  4E4F                      15          TRAP    #15             ; halt simulator
+00001012                            16  
+00001012                            17  * Variables and Strings
+00001012  =0000000D                 18  CR      EQU     $0D             ; ASCII code for Carriage Return
+00001012  =0000000A                 19  LF      EQU     $0A             ; ASCII code for Line Feed
+00001012= 48 45 4C 4C 4F 20 ...     20  MESSAGE DC.B    'HELLO CRUEL WORLD',CR,LF       ; ASCII string with new line
+00001025= 41 4C 4C 20 59 4F ...     21          DC.B    'ALL YOUR BASE ARE BELONG TO US',CR,LF
+00001045= 59 4F 55 20 43 41 ...     22          DC.B    'YOU CAN ALSO MAKE MULTIPLE LINES',CR,LF
+00001067= 49 4E 20 4F 4E 45 ...     23          DC.B    'IN ONE DC.B STATEMENT',CR,LF,'JUST REMEMBER'
+0000108B= 54 4F 20 53 45 50 ...     24          DC.B    'TO SEPERATE EACH WITH A COMMA',CR,LF,CR,LF
+000010AC= 41 4E 44 20 45 4E ...     25          DC.B    'AND END YOUR LAST STATEMENT WITH A ZERO',CR,LF,0
+000010D6                            26  
+000010D6                            27  
+000010D6                            28          END     START           ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+CR                  D
+LF                  A
+MESSAGE             1012
+START               1000

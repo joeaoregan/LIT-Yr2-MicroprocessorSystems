@@ -1,0 +1,88 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.15.00
+Created On: 26/02/2016 16:16:44
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Program    : Determines if number is prime
+00000000                             3  *-----------------------------------------------------------
+00001000                             4  START   ORG $1000
+00001000                             5    REPEAT                    ; REPEAT - UNTIL loop
+00001000                             6      * prompt for input
+00001000  43F9 00001074              7      lea prompt,A1
+00001006  103C 000E                  8      move.b  #14,D0
+0000100A  4E4F                       9      trap    #15
+0000100C                            10  
+0000100C                            11      * get number from user into D7
+0000100C  103C 0004                 12      move.b  #4,D0
+00001010  4E4F                      13      trap    #15
+00001012  2E01                      14      move.l  d1,d7
+00001014                            15      
+00001014  5381                      16      sub.l   #1,d1           ; number - 1
+00001016                            17  
+00001016                            18      * D2 is loop counter
+00001016                            19      FOR.L d2 = #2 TO d1 DO  ; FOR loop
+0000101C                            20        
+0000101C                            21        * D3 is sum
+0000101C  4283                      22        clr.l d3
+0000101E                            23  
+0000101E                            24        WHILE.L d3 <LT> d7 DO ; WHILE loop
+00001024  D682                      25          add.L d2,d3
+00001026                            26        ENDW
+00001028                            27  
+00001028                            28        IF.L d3 <EQ> d7 THEN  ; IF statement
+0000102E                            29          *not prime
+0000102E  43F9 00001097             30          lea notPrime,A1
+00001034  103C 000D                 31          move.b  #13,D0
+00001038  4E4F                      32          trap    #15
+0000103A  6000 0014                 33          bra cont            ; break
+0000103E                            34        ENDI
+0000103E                            35      ENDF
+00001044                            36      * is prime
+00001044  43F9 000010AC             37      lea isPrime,A1
+0000104A  103C 000D                 38      move.b  #13,D0
+0000104E  4E4F                      39      trap    #15
+00001050                            40  
+00001050                            41  cont
+00001050                            42      * continue Y/N? 
+00001050  43F9 000010BD             43      lea continue,A1
+00001056  103C 000E                 44      move.b  #14,d0
+0000105A  4E4F                      45      trap    #15
+0000105C                            46      * get user choice
+0000105C  103C 0005                 47      move.b  #5,d0
+00001060  4E4F                      48      trap    #15
+00001062                            49  
+00001062                            50    UNTIL.B D1 <EQ> #'N' OR.B D1 <EQ> #'n' DO
+0000106E                            51  
+0000106E  103C 0009                 52      MOVE.B  #9,D0
+00001072  4E4F                      53      TRAP    #15     Halt Simulator
+00001074                            54  
+00001074  =0000000D                 55  CR  EQU     $D
+00001074  =0000000A                 56  LF  EQU     $A
+00001074= 0D 0A 45 6E 74 65 ...     57  prompt      dc.b    CR,LF,'Enter number to test for prime: ',0
+00001097= 4E 75 6D 62 65 72 ...     58  notPrime    dc.b    'Number is NOT Prime.',0
+000010AC= 4E 75 6D 62 65 72 ...     59  isPrime     dc.b    'Number is Prime.',0
+000010BD= 43 6F 6E 74 69 6E ...     60  continue    dc.b    'Continue Y/N? ',0
+000010CC                            61      END START
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+CONT                1050
+CONTINUE            10BD
+CR                  D
+ISPRIME             10AC
+LF                  A
+NOTPRIME            1097
+PROMPT              1074
+START               1000
+_00000000           103E
+_10000000           101E
+_10000001           1028
+_20000000           101C
+_20000001           1040
+_30000000           1000
+_30000001           106E

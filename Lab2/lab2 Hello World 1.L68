@@ -1,0 +1,35 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.15.00
+Created On: 07/02/2016 13:43:09
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Program    : Hello World
+00000000                             3  * Written by : Joe O'Regan
+00000000                             4  * Date       : 27/01/2016
+00000000                             5  * Description: Sample Program 1 for Quickstart Guide
+00000000                             6  *-----------------------------------------------------------
+00001000                             7          ORG     $1000
+00001000                             8  START:                          ; first instruction of program
+00001000                             9  
+00001000  43F9 00001012             10          LEA     MESSAGE,A1      ; Loads Message into address register A1
+00001006  103C 000E                 11          MOVE.B  #14,D0          ; Moves the number 14 into data register D0
+0000100A  4E4F                      12          TRAP    #15             ; Displays Message
+0000100C                            13          
+0000100C                            14  * Exit code
+0000100C  103C 0009                 15          MOVE.B  #9,D0
+00001010  4E4F                      16          TRAP    #15             ; halt simulator
+00001012                            17  
+00001012                            18  * Variables and Strings
+00001012= 48 45 4C 4C 4F 20 ...     19  MESSAGE DC.B    'HELLO WORLD',0
+0000101E                            20  
+0000101E                            21          END     START           ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+MESSAGE             1012
+START               1000

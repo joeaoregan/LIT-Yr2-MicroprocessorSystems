@@ -39,6 +39,126 @@ It shoulf also explain how you determined if you had achieved that goal, (What c
 
 ---
 
+### Code
+
+#### Lab 1.0
+
+```text
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Program    :
+00000000                             3  * Written by :
+00000000                             4  * Date       :
+00000000                             5  * Description:
+00000000                             6  *-----------------------------------------------------------
+00001000                             7          ORG     $1000
+00001000                             8  START:                          ; first instruction of program
+00001000  323C 000A                  9          MOVE #10,D1
+00001004  383C 0009                 10          MOVE #9,D4
+00001008  D244                      11          ADD D4,D1
+0000100A  343C 000F                 12          MOVE #$F,D2
+0000100E  363C 0010                 13          MOVE #%00010000,D3
+00001012  5641                      14          ADD #3,D1
+00001014                            15  
+00001014                            16  * Exit code 
+00001014  103C 0009                 17          MOVE.B  #9,D0
+00001018  4E4F                      18          TRAP    #15             ; halt simulator
+0000101A                            19  
+0000101A                            20  * Variables and Strings
+0000101A                            21  
+0000101A                            22  
+0000101A                            23  
+0000101A                            24          END     START           ; last line of source
+```
+
+### Lab 1.1
+
+```text
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Program    :
+00000000                             3  * Written by :
+00000000                             4  * Date       :
+00000000                             5  * Description:
+00000000                             6  *-----------------------------------------------------------
+00001000                             7          ORG     $1000
+00001000                             8  START:                          ; first instruction of program
+00001000  323C 000A                  9          MOVE #10,D1
+00001004  383C 0009                 10          MOVE #9,D4
+00001008  D244                      11          ADD D4,D1
+0000100A  343C 000F                 12          MOVE #$F,D2
+0000100E  363C 0010                 13          MOVE #%00010000,D3
+00001012  5641                      14          ADD #3,D1
+00001014                            15  
+00001014                            16  * Exit code 
+00001014  103C 0009                 17          MOVE.B  #9,D0
+00001018  4E4F                      18          TRAP    #15
+0000101A  FFFF FFFF                 19                  SIMHALT ; halt simulator
+0000101E                            20  
+0000101E                            21  * Variables and Strings
+0000101E                            22  
+0000101E                            23  
+0000101E                            24  
+0000101E                            25          END     START           ; last line of source
+```
+
+### Lab 1.2
+
+```text
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Program    : Lab 1
+00000000                             3  * Written by : Joe O'Regan
+00000000                             4  * Date       : 21/01/2016
+00000000                             5  * Description: First Program
+00000000                             6  *-----------------------------------------------------------
+00001000                             7          ORG     $1000
+00001000                             8  START:                          ; first instruction of program
+00001000  123C 000A                  9          MOVE.B #10,D1                 ; Step 2
+00001004  183C 0009                 10          MOVE.B #9,D4                  ; Step 6
+00001008  D244                      11          ADD D4,D1                     ; Step 7
+0000100A  343C 000F                 12          MOVE #$F,D2                   ; Step 8
+0000100E  363C 0010                 13          MOVE #%00010000,D3            ; Step 9
+00001012  5641                      14          ADD #3,D1                     ; Step 10
+00001014                            15  
+00001014                            16  * Exit code 
+00001014  103C 0009                 17          MOVE.B  #9,D0
+00001018  4E4F                      18          TRAP    #15             ; halt simulator
+0000101A                            19  
+0000101A                            20  * Variables and Strings
+0000101A                            21  
+0000101A                            22  
+0000101A                            23  
+0000101A                            24          END     START           ; last line of source
+```
+
+### Lab 1.3
+
+```text
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Program    : Lab 1
+00000000                             3  * Written by : Joe O'Regan
+00000000                             4  * Date       : 21/01/2016
+00000000                             5  * Description: First Program
+00000000                             6  *-----------------------------------------------------------
+00001000                             7          ORG     $1000
+00001000                             8  START:                          ; first instruction of program
+00001000  123C 000A                  9          MOVE.B #10,D1                 ; Step 2
+00001004  183C 0009                 10          MOVE.B #9,D4                  ; Step 6
+00001008  D244                      11          ADD D4,D1                     ; Step 7
+0000100A  143C 000F                 12          MOVE.B #$F,D2                 ; Step 8
+0000100E  163C 0010                 13          MOVE.B #%00010000,D3          ; Step 9
+00001012  5641                      14          ADD #3,D1                     ; Step 10
+00001014                            15  
+00001014                            16  * Exit code 
+00001014  103C 0009                 17          MOVE.B  #9,D0
+00001018  4E4F                      18          TRAP    #15             ; Used for I/O
+0000101A                            19  ;         SIMHALT                       ; halt simulator (not needed Task 9 = terminate)
+0000101A                            20  
+0000101A                            21  * Variables and Strings
+0000101A                            22  
+0000101A                            23  
+0000101A                            24  
+0000101A                            25          END     START           ; last line of source
+```
+
 <div align="center">
 
 [![Back](https://img.shields.io/badge/←%20Back%20to%20Main-gray?style=flat-square)](../README.md) | 
