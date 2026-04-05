@@ -52,7 +52,7 @@
 <h6>Lab1 Intro to 68K</h6>
 <img src="https://raw.githubusercontent.com/joeaoregan/Yr2-Microprocessor-Systems-Labs/master/Screenshots/lab2.jpg" title="Lab2 Hello World"/>
 <h6>Lab2 Hello World</h6>
-<img src="https://raw.githubusercontent.com/joeaoregan/Yr2-Microprocessor-Systems-Labs/master/Screenshots/lab4.png" title="Lab2 Calculator"/>
+<img src="https://raw.githubusercontent.com/joeaoregan/Yr2-Microprocessor-Systems-Labs/master/Screenshots/lab4.png" title="Lab4 Calculator"/>
 <h6>Lab4 Perform calculation</h6>
 <img src="https://raw.githubusercontent.com/joeaoregan/Yr2-Microprocessor-Systems-Labs/master/Screenshots/Lab5a.png" title="Lab5 Hardware Switch Detect 1"/>
 <h6>Lab5 Hardware Switch Detect 1</h6>
