@@ -39,12 +39,18 @@
 <details closed>
 <summary><b>Microprossor Systems: </b>68K Assembly Language Pics<br/>
 <div style="height: 160px; overflow: hidden;">
+<img src="https://raw.githubusercontent.com/joeaoregan/Yr2-Microprocessor-Systems-Labs/master/Screenshots/lab1.jpg" style="height: 160px; width: auto; object-fit: cover;"/>
+<img src="https://raw.githubusercontent.com/joeaoregan/Yr2-Microprocessor-Systems-Labs/master/Screenshots/lab2.jpg" style="height: 160px; width: auto; object-fit: cover;"/>
 <img src="https://raw.githubusercontent.com/joeaoregan/Yr2-Microprocessor-Systems-Labs/master/Screenshots/Lab5a.png" style="height: 160px; width: auto; object-fit: cover;"/>
 <img src="https://raw.githubusercontent.com/joeaoregan/Yr2-Microprocessor-Systems-Labs/master/Screenshots/Lab5b.png" style="height: 160px; width: auto; object-fit: cover;"/>
 <img src="https://raw.githubusercontent.com/joeaoregan/Yr2-Microprocessor-Systems-Labs/master/Screenshots/Lab6.png" style="height: 160px; width: auto; object-fit: cover;"/>
 </div>
 <p>Click here for larger images.</p>
 </summary>
+<img src="https://raw.githubusercontent.com/joeaoregan/Yr2-Microprocessor-Systems-Labs/master/Screenshots/lab1.jpg" title="Lab1 Intro to 68K"/>
+<h6>Lab1 Intro to 68K</h6>
+<img src="https://raw.githubusercontent.com/joeaoregan/Yr2-Microprocessor-Systems-Labs/master/Screenshots/lab2.jpg" title="Lab2 Hello World"/>
+<h6>Lab2 Hello World</h6>
 <img src="https://raw.githubusercontent.com/joeaoregan/Yr2-Microprocessor-Systems-Labs/master/Screenshots/Lab5a.png" title="Lab5 Hardware Switch Detect 1"/>
 <h6>Lab5 Hardware Switch Detect 1</h6>
 <img src="https://raw.githubusercontent.com/joeaoregan/Yr2-Microprocessor-Systems-Labs/master/Screenshots/Lab5b.png" title="Lab5 Hardware Switch Detect 2"/>
