@@ -8,6 +8,12 @@
 
 Hardware Switch Detect
 
+<img src="https://raw.githubusercontent.com/joeaoregan/Yr2-Microprocessor-Systems-Labs/master/Screenshots/Lab5a.png" title="Lab5 Hardware Switch Detect 1"/>
+<h6>Lab5 Hardware Switch Detect 1</h6>
+
+<img src="https://raw.githubusercontent.com/joeaoregan/Yr2-Microprocessor-Systems-Labs/master/Screenshots/Lab5b.png" title="Lab5 Hardware Switch Detect 2"/>
+<h6>Lab5 Hardware Switch Detect 2</h6>
+
 ---
 
 <div align="center">

@@ -6,7 +6,10 @@
 
 ### Lab 6
 
-7 Secgment Display
+7 Segment Display
+
+<img src="https://raw.githubusercontent.com/joeaoregan/Yr2-Microprocessor-Systems-Labs/master/Screenshots/Lab6.png" title="Lab6 7 Segment Display"/>
+<h6>Lab6 7 Segment Display</h6>
 
 ---
 
